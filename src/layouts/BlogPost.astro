@@ -1,0 +1,67 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Page from './Page.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  relatedPosts: CollectionEntry<'blog'>[];
+}
+
+const { post, relatedPosts } = Astro.props;
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'UnsaidSignals',
+  url: 'https://unsaidsignals.com',
+  logo: 'https://unsaidsignals.com/favicon.svg',
+};
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  author: {
+    '@type': 'Person',
+    name: post.data.author,
+  },
+  datePublished: post.data.pubDate.toISOString(),
+  mainEntityOfPage: `https://unsaidsignals.com/blog/${post.slug}/`,
+  publisher: {
+    '@type': 'Organization',
+    name: 'UnsaidSignals',
+  },
+};
+---
+
+<Page
+  title={`${post.data.title} | UnsaidSignals Blog`}
+  description={post.data.description}
+  canonical={`/blog/${post.slug}/`}
+  image={post.data.image ?? '/og-default.svg'}
+  jsonLd={[organizationJsonLd, articleJsonLd]}
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:py-20">
+    <p class="text-sm text-zinc-400">{post.data.pubDate.toDateString()} · {post.data.author}</p>
+    <h1 class="mt-3 text-4xl font-semibold tracking-tight text-zinc-100">{post.data.title}</h1>
+    <p class="mt-4 text-lg text-zinc-300">{post.data.description}</p>
+    <div class="article-content mt-10">
+      <slot />
+    </div>
+  </article>
+
+  {
+    relatedPosts.length > 0 && (
+      <section class="mx-auto max-w-3xl px-4 pb-20 sm:px-6">
+        <h2 class="text-2xl font-semibold text-zinc-100">Related Posts</h2>
+        <div class="mt-6 grid gap-4">
+          {relatedPosts.map((related) => (
+            <a href={`/blog/${related.slug}/`} class="rounded-lg border border-zinc-800 bg-zinc-950/50 p-4 hover:border-zinc-700">
+              <h3 class="text-lg font-medium text-zinc-100">{related.data.title}</h3>
+              <p class="mt-1 text-sm text-zinc-300">{related.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Page>

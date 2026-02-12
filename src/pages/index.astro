@@ -1,17 +1,59 @@
 ---
+import Page from '../layouts/Page.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import CTA from '../components/CTA.astro';
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'UnsaidSignals',
+  url: 'https://unsaidsignals.com',
+  logo: 'https://unsaidsignals.com/favicon.svg',
+  sameAs: ['https://x.com', 'https://www.linkedin.com'],
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Page
+  title="UnsaidSignals | Team intelligence before issues become outcomes"
+  description="UnsaidSignals surfaces early signals of misalignment, friction, and energy loss so leaders can act before performance declines."
+  canonical="/"
+  jsonLd={organizationJsonLd}
+>
+  <Hero />
+  <Features />
+
+  <section id="how-it-works" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <h2 class="text-3xl font-semibold tracking-tight text-zinc-100">How it works</h2>
+    <div class="mt-8 grid gap-5 md:grid-cols-3">
+      <article class="rounded-xl border border-zinc-800 bg-zinc-950/50 p-6">
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">Step 1</p>
+        <h3 class="mt-3 text-lg font-semibold text-zinc-100">Weekly 2-minute pulse check</h3>
+        <p class="mt-2 text-sm text-zinc-300">Short, anonymous responses make it safe for people to share what is actually happening.</p>
+      </article>
+      <article class="rounded-xl border border-zinc-800 bg-zinc-950/50 p-6">
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">Step 2</p>
+        <h3 class="mt-3 text-lg font-semibold text-zinc-100">AI analyzes team patterns</h3>
+        <p class="mt-2 text-sm text-zinc-300">Signals are clustered and interpreted to surface the patterns leaders cannot see in standups.</p>
+      </article>
+      <article class="rounded-xl border border-zinc-800 bg-zinc-950/50 p-6">
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-300">Step 3</p>
+        <h3 class="mt-3 text-lg font-semibold text-zinc-100">Actionable narratives, not just numbers</h3>
+        <p class="mt-2 text-sm text-zinc-300">You get weekly guidance with context and concrete actions for improving clarity, trust, and energy.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+    <h2 class="text-2xl font-semibold text-zinc-100">Trusted by modern team leaders</h2>
+    <p class="mt-2 max-w-2xl text-zinc-300">Social proof block placeholder for customer logos and testimonials.</p>
+    <div class="mt-6 grid grid-cols-2 gap-4 text-center text-sm text-zinc-400 sm:grid-cols-4">
+      <div class="rounded-lg border border-zinc-800 p-4">Logo One</div>
+      <div class="rounded-lg border border-zinc-800 p-4">Logo Two</div>
+      <div class="rounded-lg border border-zinc-800 p-4">Logo Three</div>
+      <div class="rounded-lg border border-zinc-800 p-4">Logo Four</div>
+    </div>
+  </section>
+
+  <CTA />
+</Page>

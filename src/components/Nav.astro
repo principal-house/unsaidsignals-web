@@ -1,0 +1,27 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/#features', label: 'Features' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/pricing', label: 'Pricing' },
+];
+---
+
+<nav class="sticky top-0 z-40 border-b border-zinc-800/80 bg-zinc-900/90 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <a href="/" class="text-lg font-semibold tracking-tight text-zinc-100">UnsaidSignals</a>
+    <div class="flex items-center gap-5 text-sm text-zinc-300">
+      {
+        links.map((link) => (
+          <a class="hidden transition hover:text-zinc-100 sm:inline" href={link.href}>{link.label}</a>
+        ))
+      }
+      <a
+        href="https://app.unsaidsignals.com"
+        class="rounded-md bg-brand-500 px-4 py-2 font-medium text-white transition hover:bg-brand-400"
+      >
+        Get Started
+      </a>
+    </div>
+  </div>
+</nav>
